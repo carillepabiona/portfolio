@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document Archiving System — Carille B. Pabiona</title>
+  <script>
+    (function(){
+      var saved = localStorage.getItem('theme');
+      if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/document-archiving.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','sans-serif'], mono: ['JetBrains Mono','monospace'] },
+          colors: {
+            accent: { DEFAULT: '#2563eb', hover: '#1d4ed8', light: '#dbeafe', dark: '#1e40af' }
+          }
+        }
+      }
+    }
+  </script>
+  
+</head>
+<body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 antialiased">
+
+  <!-- STICKY NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200/60 dark:border-slate-800/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html#projects" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-blue-400 font-medium text-sm transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Portfolio
+        </a>
+        <a href="index.html" class="font-mono font-semibold text-accent tracking-tight text-base">&lt;CBP /&gt;</a>
+        <button id="themeToggle" aria-label="Toggle dark mode" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+          <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+          <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-yellow-400"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative pt-16 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]" style="background-image:radial-gradient(circle,#7c3aed 1px,transparent 1px);background-size:28px 28px;"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-12">
+      <div class="reveal mb-4">
+        <span class="inline-flex items-center gap-2 bg-violet-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+          <i data-lucide="archive" class="w-3.5 h-3.5"></i> Desktop App
+        </span>
+        <span class="ml-2 inline-flex items-center gap-2 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold px-3 py-1.5 rounded-full">
+          <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Completed · Academic Project
+        </span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4 reveal reveal-delay-1">
+        Document Archiving &<br /><span class="text-violet-600 dark:text-violet-400">Security Management</span>
+      </h1>
+      <p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mb-8 reveal reveal-delay-2">
+        A computer-based system built with ASP.NET Core that digitizes and centralizes organizational records with role-based access control and secure document storage and retrieval.
+      </p>
+      <div class="flex flex-wrap gap-2 reveal reveal-delay-3">
+        <span class="bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 text-xs font-semibold px-3 py-1.5 rounded-lg">ASP.NET Core</span>
+        <span class="bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 text-xs font-semibold px-3 py-1.5 rounded-lg">C#</span>
+        <span class="bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 text-xs font-semibold px-3 py-1.5 rounded-lg">SQL Server</span>
+        <span class="bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 text-xs font-semibold px-3 py-1.5 rounded-lg">EF Core</span>
+      </div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-0">
+      <div class="rounded-t-3xl overflow-hidden border border-b-0 border-slate-200 dark:border-slate-700 shadow-2xl cursor-pointer reveal" onclick="openLightbox('images/2.png','Document Archiving System — Banner')">
+        <div class="placeholder-img w-full h-72 sm:h-96 flex items-center justify-center relative">
+          <img src="images/2.png" alt="Document Archiving System" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- STATS -->
+  <section class="py-10 bg-slate-50/60 dark:bg-slate-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="text-center reveal card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-violet-600">4K+</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Lines of Code</div>
+        </div>
+        <div class="text-center reveal reveal-delay-1 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-violet-600">5</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Core Modules</div>
+        </div>
+        <div class="text-center reveal reveal-delay-2 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-violet-600">12+</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">DB Tables</div>
+        </div>
+        <div class="text-center reveal reveal-delay-1 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-violet-600">15+</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Screens</div>
+        </div>
+        <div class="text-center reveal reveal-delay-2 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-violet-600">3</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">User Roles</div>
+        </div>
+        <div class="text-center reveal reveal-delay-3 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-violet-600">2</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Months Dev</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- OVERVIEW -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-violet-600 dark:text-violet-400 text-sm font-semibold tracking-widest uppercase mb-2">Project Overview</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Problem · Solution · Outcome</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-red-100 dark:border-red-900/30 p-7 shadow-sm reveal">
+          <div class="w-12 h-12 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-5">
+            <i data-lucide="alert-circle" class="w-6 h-6 text-red-500"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Problem</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Organizations relied on physical filing cabinets and paper-based records, making document retrieval slow, prone to loss, and lacking in access control — creating security risks and inefficiencies in record management.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-violet-100 dark:border-violet-900/30 p-7 shadow-sm reveal reveal-delay-1">
+          <div class="w-12 h-12 rounded-2xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mb-5">
+            <i data-lucide="lightbulb" class="w-6 h-6 text-violet-600"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Solution</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Developed a web-based archiving system using ASP.NET Core Razor Pages that digitizes, stores, and manages organizational documents with role-based access control, audit logging, and fast keyword-based retrieval.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-emerald-100 dark:border-emerald-900/30 p-7 shadow-sm reveal reveal-delay-2">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mb-5">
+            <i data-lucide="trending-up" class="w-6 h-6 text-emerald-600"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Outcome</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Eliminated manual filing processes, reduced document retrieval time significantly, and enforced access security through user roles. Delivered a fully functional academic project with a clean, professional interface.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- GALLERY -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-violet-600 dark:text-violet-400 text-sm font-semibold tracking-widest uppercase mb-2">Screenshots</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Project Gallery</h2>
+        <p class="text-slate-500 dark:text-slate-400 mt-3 text-sm">Click any image to view full-size.</p>
+      </div>
+      <div class="mb-4 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg cursor-pointer reveal" onclick="openLightbox('images/DocArchive/3.png','Document Archiving — Main View')">
+        <div class="placeholder-img w-full h-64 sm:h-80 relative flex items-center justify-center">
+          <img src="images/DocArchive/3.png" alt="Document Archiving System" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+          <div class="relative z-10 text-center pointer-events-none"><i data-lucide="monitor" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">Main View</p></div>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal card-lift" onclick="openLightbox('images/DocArchive/5.png','Document List')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/DocArchive/5.png" alt="Document List" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="file-text" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">Document List</p></div>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal reveal-delay-1 card-lift" onclick="openLightbox('images/DocArchive/4.png','User Management')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/DocArchive/4.png" alt="User Management" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="users" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">User Management</p></div>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal reveal-delay-2 card-lift" onclick="openLightbox('images/DocArchive/12.png','Access Control')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/DocArchive/12.png" alt="Access Control" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="shield" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">Access Control</p></div>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal reveal-delay-3 card-lift" onclick="openLightbox('images/DocArchive/audit.png','Audit Logs')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/DocArchive/audit.png" alt="Audit Logs" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="scroll-text" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">Audit Logs</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FEATURES -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-violet-600 dark:text-violet-400 text-sm font-semibold tracking-widest uppercase mb-2">Capabilities</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Key Features</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal text-center">
+          <div class="w-14 h-14 rounded-2xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="archive" class="w-7 h-7 text-violet-600"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Document Archiving</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Digitally upload, categorize, and store organizational documents in a structured repository.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="search" class="w-7 h-7 text-emerald-600"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Fast Retrieval</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Keyword and category-based search for instant document lookup across the archive.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-2 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="shield" class="w-7 h-7 text-red-500"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Access Control</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Role-based permissions ensuring only authorized users can view, edit, or delete specific records.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center mx-auto mb-4"><i data-lucide="users" class="w-7 h-7 text-accent"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">User Management</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Admin panel to create, update, and manage user accounts and their assigned roles.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-2 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="scroll-text" class="w-7 h-7 text-orange-500"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Audit Logging</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Track all user actions and document accesses for accountability and security monitoring.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- TECH STACK -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-violet-600 dark:text-violet-400 text-sm font-semibold tracking-widest uppercase mb-2">Built With</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Technology Stack</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Frontend</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">HTML5</span>
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">CSS3</span>
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">JavaScript</span>
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">Razor Pages</span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Backend</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 text-xs font-semibold px-3 py-1.5 rounded-lg">ASP.NET Core</span>
+            <span class="bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 text-xs font-semibold px-3 py-1.5 rounded-lg">C#</span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-2">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Database</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold px-3 py-1.5 rounded-lg">SQL Server</span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-3">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Framework</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 border border-accent/20 text-xs font-semibold px-3 py-1.5 rounded-lg">EF Core</span>
+            <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 border border-accent/20 text-xs font-semibold px-3 py-1.5 rounded-lg">Bootstrap</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- WALKTHROUGH -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-violet-600 dark:text-violet-400 text-sm font-semibold tracking-widest uppercase mb-2">Tour</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">System Walkthrough</h2>
+      </div>
+      <div class="space-y-12">
+        <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/DocArchive/login.png','Login Page')">
+            <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+              <img src="images/DocArchive/login.png" alt="Login Page" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+              <div class="relative z-10 text-center pointer-events-none"><i data-lucide="lock" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">Login Page</p></div>
+            </div>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-violet-600 uppercase tracking-wider">01 — Login</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Authentication Screen</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Secure login for system users. Credentials are validated against the database with role assignment determining access levels post-authentication.</p>
+          </div>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+          <div class="order-2 lg:order-1">
+            <span class="text-xs font-bold text-violet-600 uppercase tracking-wider">02 — Archive</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Document Repository</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Central document library with category filters, search, and quick previews. Users can upload new documents, tag them, and organize by type or department.</p>
+          </div>
+          <div class="order-1 lg:order-2 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/arch-repo.png','Document Repository')">
+            <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+              <img src="images/DocArchive/DOCS.png" alt="Document Repository" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+              <div class="relative z-10 text-center pointer-events-none"><i data-lucide="archive" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">Document Repository</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/DocArchive/USERS.png','Role Management')">
+            <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+              <img src="images/DocArchive/USERS.png" alt="Role Management" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+              <div class="relative z-10 text-center pointer-events-none"><i data-lucide="shield" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">Role Management</p></div>
+            </div>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-violet-600 uppercase tracking-wider">03 — Security</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Access Control & Roles</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Admin interface for managing user roles and permissions. Administrators can restrict document access to specific roles, protecting sensitive organizational records.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- TIMELINE -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-violet-600 dark:text-violet-400 text-sm font-semibold tracking-widest uppercase mb-2">How It Was Built</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Development Timeline</h2>
+      </div>
+      <div class="space-y-6">
+        <div class="flex gap-5 reveal">
+          <div class="w-10 h-10 rounded-full bg-violet-600 flex items-center justify-center flex-shrink-0"><i data-lucide="file-search" class="w-5 h-5 text-white"></i></div>
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white">Planning & Requirements</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Identified system goals, defined module scope, and planned database schema based on document management needs.</p>
+          </div>
+        </div>
+        <div class="flex gap-5 reveal reveal-delay-1">
+          <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0"><i data-lucide="pen-tool" class="w-5 h-5 text-white"></i></div>
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white">System & UI Design</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Designed page layouts using Razor Pages, created navigation flows, and established UI components with Bootstrap.</p>
+          </div>
+        </div>
+        <div class="flex gap-5 reveal reveal-delay-2">
+          <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0"><i data-lucide="database" class="w-5 h-5 text-white"></i></div>
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white">Database Design</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Designed SQL Server schema with tables for documents, users, roles, categories, and audit logs. Configured EF Core migrations.</p>
+          </div>
+        </div>
+        <div class="flex gap-5 reveal">
+          <div class="w-10 h-10 rounded-full bg-violet-600 flex items-center justify-center flex-shrink-0"><i data-lucide="code-2" class="w-5 h-5 text-white"></i></div>
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white">Development</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Built all modules — document archiving, access control, user management, and audit logging — with ASP.NET Core and EF Core.</p>
+          </div>
+        </div>
+        <div class="flex gap-5 reveal reveal-delay-1">
+          <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0"><i data-lucide="bug" class="w-5 h-5 text-white"></i></div>
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white">Testing & Security Review</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Tested all CRUD operations, validated access restrictions per role, and verified audit log accuracy across all actions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CHALLENGES -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-violet-600 dark:text-violet-400 text-sm font-semibold tracking-widest uppercase mb-2">Learnings</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Challenges & Solutions</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="alert-triangle" class="w-5 h-5 text-red-500"></i></div>
+            <div><p class="text-xs font-bold text-red-500 uppercase tracking-wide mb-1">Challenge</p><p class="text-slate-700 dark:text-slate-300 font-semibold text-sm">Implementing granular role-based access across all document actions.</p></div>
+          </div>
+          <div class="mt-4 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-5 h-5 text-emerald-600"></i></div>
+            <div><p class="text-xs font-bold text-emerald-600 uppercase tracking-wide mb-1">Solution</p><p class="text-slate-500 dark:text-slate-400 text-sm">Leveraged ASP.NET Core's built-in authorization with custom policies to restrict actions per role at both the controller and view levels.</p></div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="alert-triangle" class="w-5 h-5 text-red-500"></i></div>
+            <div><p class="text-xs font-bold text-red-500 uppercase tracking-wide mb-1">Challenge</p><p class="text-slate-700 dark:text-slate-300 font-semibold text-sm">Efficiently storing and retrieving large volumes of document metadata.</p></div>
+          </div>
+          <div class="mt-4 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-5 h-5 text-emerald-600"></i></div>
+            <div><p class="text-xs font-bold text-emerald-600 uppercase tracking-wide mb-1">Solution</p><p class="text-slate-500 dark:text-slate-400 text-sm">Designed indexed SQL Server tables and used EF Core LINQ queries optimized for filtered, paginated result sets.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY LEARNINGS -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-violet-600 dark:text-violet-400 text-sm font-semibold tracking-widest uppercase mb-2">Takeaways</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Key Learnings</h2>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal text-center"><i data-lucide="shield" class="w-7 h-7 text-violet-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Access Control</p></div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-1 text-center"><i data-lucide="database" class="w-7 h-7 text-violet-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Database Design</p></div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-2 text-center"><i data-lucide="layers" class="w-7 h-7 text-violet-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Full-Stack Dev</p></div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal text-center"><i data-lucide="git-branch" class="w-7 h-7 text-violet-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Architecture</p></div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-1 text-center"><i data-lucide="file-text" class="w-7 h-7 text-violet-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Documentation</p></div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-2 text-center"><i data-lucide="bug" class="w-7 h-7 text-violet-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Debugging</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT NAV -->
+  <div class="py-10 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <a href="project-ordering-mobile.html" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-blue-400 font-medium text-sm transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> Ordering Mobile System
+      </a>
+      <a href="index.html#projects" class="text-slate-500 text-sm hover:text-accent transition-colors">All Projects</a>
+      <a href="project-cafe-ordering.html" class="inline-flex items-center gap-2 text-accent dark:text-blue-400 font-semibold text-sm hover:underline">
+        Cafe Web Ordering System <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <div class="relative max-w-5xl w-full mx-4">
+        <button 
+        onclick="closeLightbox()" 
+        aria-label="Close lightbox"
+        class="absolute -top-10 right-0 text-white hover:text-slate-300">
+        <i data-lucide="x" class="w-7 h-7"></i>
+        </button>
+      <img id="lightboxImg" src="" alt="" class="w-full h-auto rounded-2xl shadow-2xl max-h-[85vh] object-contain" />
+      <p id="lightboxCaption" class="text-center text-slate-300 text-sm mt-3"></p>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('themeToggle').addEventListener('click',()=>{
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      lucide.createIcons();
+    });
+    const observer = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); }); },{ threshold:0.1 });
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    function openLightbox(src, caption) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxCaption').textContent = caption;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>

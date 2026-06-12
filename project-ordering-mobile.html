@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ordering Mobile Management System — Carille B. Pabiona</title>
+  <script>
+    (function(){
+      var saved = localStorage.getItem('theme');
+      if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/ordering-mobile.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','sans-serif'], mono: ['JetBrains Mono','monospace'] },
+          colors: {
+            accent: { DEFAULT: '#2563eb', hover: '#1d4ed8', light: '#dbeafe', dark: '#1e40af' }
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.6s ease forwards',
+            'count-up': 'fadeUp 0.8s ease forwards',
+          },
+          keyframes: {
+            fadeUp: { from: { opacity:'0', transform:'translateY(24px)' }, to: { opacity:'1', transform:'translateY(0)' } }
+          }
+        }
+      }
+    }
+  </script>
+  
+</head>
+<body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 antialiased">
+
+  <!-- STICKY NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200/60 dark:border-slate-800/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html#projects" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-blue-400 font-medium text-sm transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          Back to Portfolio
+        </a>
+        <a href="index.html" class="font-mono font-semibold text-accent tracking-tight text-base">&lt;CBP /&gt;</a>
+        <div class="flex items-center gap-2">
+          <button id="themeToggle" aria-label="Toggle dark mode" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+            <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+            <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-yellow-400"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative pt-16 pb-0 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]" style="background-image:radial-gradient(circle,#2563eb 1px,transparent 1px);background-size:28px 28px;"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-12">
+      <div class="reveal mb-4">
+        <span class="inline-flex items-center gap-2 bg-accent text-white text-xs font-bold px-3 py-1.5 rounded-full">
+          <i data-lucide="smartphone" class="w-3.5 h-3.5"></i> Mobile App
+        </span>
+        <span class="ml-2 inline-flex items-center gap-2 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold px-3 py-1.5 rounded-full">
+          <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Completed · Capstone Project
+        </span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4 reveal reveal-delay-1">
+        Ordering Mobile<br /><span class="text-accent">Management System</span>
+      </h1>
+      <p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mb-8 reveal reveal-delay-2">
+        A digital restaurant management solution built with .NET MAUI Hybrid Blazor — featuring a full POS, Kitchen Display System, and menu ordering workflows for modern food service operations.
+      </p>
+      <div class="flex flex-wrap gap-2 reveal reveal-delay-3">
+        <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 text-xs font-semibold px-3 py-1.5 rounded-lg">.NET MAUI Hybrid Blazor</span>
+        <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 text-xs font-semibold px-3 py-1.5 rounded-lg">C#</span>
+        <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 text-xs font-semibold px-3 py-1.5 rounded-lg">JavaScript</span>
+        <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 text-xs font-semibold px-3 py-1.5 rounded-lg">MariaDB</span>
+        <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 text-xs font-semibold px-3 py-1.5 rounded-lg">SQLite</span>
+      </div>
+    </div>
+    <!-- BANNER IMAGE -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-0">
+      <div class="rounded-t-3xl overflow-hidden border border-b-0 border-slate-200 dark:border-slate-700 shadow-2xl cursor-pointer reveal" onclick="openLightbox('images/DigiDine.png','Ordering Mobile Management System — Banner')">
+        <!-- REPLACE: <img src="images/DigiDine.png" alt="Ordering System Banner" class="w-full h-auto object-cover" /> -->
+        <div class="placeholder-img w-full h-72 sm:h-96 flex flex-col items-center justify-center gap-3 relative">
+          <img src="images/DigiDine.png" alt="Ordering System Banner" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+          <div class="relative z-10 text-center pointer-events-none">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- STATS -->
+  <section class="py-10 bg-slate-50/60 dark:bg-slate-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="text-center reveal card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-accent stat-number" data-target="5000">5K+</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Lines of Code</div>
+        </div>
+        <div class="text-center reveal reveal-delay-1 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-accent stat-number">4</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Core Modules</div>
+        </div>
+        <div class="text-center reveal reveal-delay-2 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-accent stat-number">15+</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">DB Tables</div>
+        </div>
+        <div class="text-center reveal reveal-delay-1 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-accent stat-number">20+</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Screens</div>
+        </div>
+        <div class="text-center reveal reveal-delay-2 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-accent stat-number">3</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Months Dev</div>
+        </div>
+        <div class="text-center reveal reveal-delay-3 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-accent stat-number">2</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">DB Systems</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- OVERVIEW -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-2">Project Overview</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Problem · Solution · Outcome</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-red-100 dark:border-red-900/30 p-7 shadow-sm reveal">
+          <div class="w-12 h-12 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-5">
+            <i data-lucide="alert-circle" class="w-6 h-6 text-red-500"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Problem</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Restaurant staff relied on manual paper-based order taking, causing errors, slow kitchen communication, and no visibility into real-time order status — leading to poor customer experience and operational inefficiencies.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-blue-100 dark:border-blue-900/30 p-7 shadow-sm reveal reveal-delay-1">
+          <div class="w-12 h-12 rounded-2xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center mb-5">
+            <i data-lucide="lightbulb" class="w-6 h-6 text-accent"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Solution</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Built a cross-platform mobile application using .NET MAUI Hybrid Blazor that digitizes the entire ordering workflow — from customer menu browsing and order placement to POS processing and live Kitchen Display System updates.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-emerald-100 dark:border-emerald-900/30 p-7 shadow-sm reveal reveal-delay-2">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mb-5">
+            <i data-lucide="trending-up" class="w-6 h-6 text-emerald-600"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Outcome</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Eliminated manual order errors, improved kitchen-to-floor communication, and provided a smooth end-to-end digital restaurant experience. Delivered as a fully functional capstone project demonstrating real-world mobile development skills.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- GALLERY -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-2">Screenshots</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Project Gallery</h2>
+        <p class="text-slate-500 dark:text-slate-400 mt-3 text-sm">Click any image to view full-size.</p>
+      </div>
+      <!-- Main screenshot -->
+      <div class="mb-4 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg cursor-pointer reveal" onclick="openLightbox('images/DigiDine/20.png','Login')">
+        <div class="placeholder-img w-full h-64 sm:h-80 relative flex items-center justify-center">
+          <img src="images/DigiDine/20.png" alt="Main Dashboard" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+          <div class="relative z-10 text-center pointer-events-none"><i data-lucide="monitor" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">Login</p></div>
+        </div>
+      </div>
+      <!-- Thumbnails -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal card-lift" onclick="openLightbox('images/DigiDine/10.png','POS Module')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/DigiDine/10.png" alt="POS Module" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="shopping-cart" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">POS Module</p></div>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal reveal-delay-1 card-lift" onclick="openLightbox('images/DigiDine/16.png','Kitchen Display')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/DigiDine/16.png" alt="Kitchen Display" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="chef-hat" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">KDS</p></div>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal reveal-delay-2 card-lift" onclick="openLightbox('images/DigiDine/2.png','Menu Ordering')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/DigiDine/2.png" alt="Menu Ordering" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="book-open" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">Menu</p></div>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal reveal-delay-3 card-lift" onclick="openLightbox('images/DigiDine/18.png','Reports')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/DigiDine/18.png" alt="Reports" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="bar-chart-2" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">Reports</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FEATURES -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-2">Capabilities</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Key Features</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal text-center">
+          <div class="w-14 h-14 rounded-2xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center mx-auto mb-4"><i data-lucide="shopping-cart" class="w-7 h-7 text-accent"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Point of Sale</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Full POS system for order processing, billing, and payment management at the counter.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="monitor" class="w-7 h-7 text-orange-500"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Kitchen Display</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Real-time KDS screen for kitchen staff to track and manage incoming orders by status.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-2 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="book-open" class="w-7 h-7 text-violet-500"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Menu Ordering</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Digital menu browsing and order placement for table-side or counter use.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-3 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="zap" class="w-7 h-7 text-emerald-500"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Real-Time Orders</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Instant order updates shared across POS, KDS, and ordering terminals simultaneously.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- TECH STACK -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-2">Built With</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Technology Stack</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Frontend</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">HTML5</span>
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">CSS3</span>
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">JavaScript</span>
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">Blazor</span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Backend</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 border border-accent/20 text-xs font-semibold px-3 py-1.5 rounded-lg">.NET MAUI</span>
+            <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 border border-accent/20 text-xs font-semibold px-3 py-1.5 rounded-lg">C#</span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-2">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Database</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold px-3 py-1.5 rounded-lg">MariaDB</span>
+            <span class="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold px-3 py-1.5 rounded-lg">SQLite</span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-3">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Framework</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 text-xs font-semibold px-3 py-1.5 rounded-lg">Hybrid Blazor</span>
+            <span class="bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-300 border border-violet-200 dark:border-violet-800 text-xs font-semibold px-3 py-1.5 rounded-lg">EF Core</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- WALKTHROUGH -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-2">Tour</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">System Walkthrough</h2>
+      </div>
+      <div class="space-y-12">
+        <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/DigiDine/20.png','Login Page')">
+            <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+              <img src="images/DigiDine/20.png" alt="Login Page" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+              <div class="relative z-10 text-center pointer-events-none"><i data-lucide="lock" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">Login Page</p></div>
+            </div>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider">01 — Login</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Authentication Screen</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Secure login portal for restaurant staff. Role-based access ensures cashiers, kitchen staff, and managers each see the right interface upon login.</p>
+          </div>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+          <div class="order-2 lg:order-1">
+            <span class="text-xs font-bold text-accent uppercase tracking-wider">02 — Menu</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Menu Display</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Customers order from their table through tablet, view menu, add items to cart, submit orders without calling staff.</p>
+          </div>
+          <div class="order-1 lg:order-2 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/DigiDine/menudisplay.png','Menu')">
+            <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+              <img src="images/DigiDine/menudisplay.png" alt="Menu" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+              <div class="relative z-10 text-center pointer-events-none"><i data-lucide="layout-dashboard" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">Menu</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+          <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/DigiDine/pos.png','POS Module')">
+            <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+              <img src="images/DigiDine/pos.png" alt="POS Module" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+              <div class="relative z-10 text-center pointer-events-none"><i data-lucide="shopping-cart" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">POS Module</p></div>
+            </div>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider">03 — POS</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Point of Sale Module</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Full POS interface for cashiers to accept orders, apply discounts, compute totals, and print receipts — all from a mobile device.</p>
+          </div>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+          <div class="order-2 lg:order-1">
+            <span class="text-xs font-bold text-accent uppercase tracking-wider">04 — KDS</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Kitchen Display System</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Kitchen-facing display showing incoming orders in real time, with status controls for chefs to mark items as preparing, ready, or served.</p>
+          </div>
+          <div class="order-1 lg:order-2 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/DigiDine/16.png','KDS Module')">
+            <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+              <img src="images/DigiDine/16.png" alt="KDS Module" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+              <div class="relative z-10 text-center pointer-events-none"><i data-lucide="monitor" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">KDS Module</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- TIMELINE -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-2">How It Was Built</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Development Timeline</h2>
+      </div>
+      <div class="space-y-6">
+        <div class="relative timeline-line flex gap-5 reveal">
+          <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0 z-10"><i data-lucide="file-search" class="w-5 h-5 text-white"></i></div>
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white">Planning & Requirements</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Gathered requirements, defined project scope, identified core modules, and outlined system architecture.</p>
+          </div>
+        </div>
+        <div class="relative flex gap-5 reveal reveal-delay-1">
+          <div class="w-10 h-10 rounded-full bg-violet-500 flex items-center justify-center flex-shrink-0 z-10"><i data-lucide="pen-tool" class="w-5 h-5 text-white"></i></div>
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white">System & UI Design</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Designed wireframes and UI layouts for all screens. Established the design system and navigation flow.</p>
+          </div>
+        </div>
+        <div class="relative flex gap-5 reveal reveal-delay-2">
+          <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0 z-10"><i data-lucide="database" class="w-5 h-5 text-white"></i></div>
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white">Database Design</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Designed the relational schema using MariaDB for server-side data and SQLite for local offline storage.</p>
+          </div>
+        </div>
+        <div class="relative flex gap-5 reveal">
+          <div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0 z-10"><i data-lucide="code-2" class="w-5 h-5 text-white"></i></div>
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white">Development</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Built POS, KDS, and menu ordering modules using .NET MAUI Hybrid Blazor with C# backend logic and Blazor components.</p>
+          </div>
+        </div>
+        <div class="relative flex gap-5 reveal reveal-delay-1">
+          <div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0 z-10"><i data-lucide="bug" class="w-5 h-5 text-white"></i></div>
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white">Testing & Debugging</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Conducted functional testing across all modules, fixed edge-case bugs, and validated real-time order sync behavior.</p>
+          </div>
+        </div>
+        <div class="relative flex gap-5 reveal reveal-delay-2">
+          <div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center flex-shrink-0 z-10"><i data-lucide="rocket" class="w-5 h-5 text-white"></i></div>
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white">Deployment & Presentation</h4>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Packaged and deployed the app for capstone presentation. Demonstrated all workflows to the panel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CHALLENGES -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-2">Learnings</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Challenges & Solutions</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="alert-triangle" class="w-5 h-5 text-red-500"></i></div>
+            <div>
+              <p class="text-xs font-bold text-red-500 uppercase tracking-wide mb-1">Challenge</p>
+              <p class="text-slate-700 dark:text-slate-300 font-semibold text-sm">Real-time order synchronization between POS and KDS.</p>
+            </div>
+          </div>
+          <div class="mt-4 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-5 h-5 text-emerald-600"></i></div>
+            <div>
+              <p class="text-xs font-bold text-emerald-600 uppercase tracking-wide mb-1">Solution</p>
+              <p class="text-slate-500 dark:text-slate-400 text-sm">Implemented database-driven polling with MariaDB to push order status updates to the KDS in near real-time.</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="alert-triangle" class="w-5 h-5 text-red-500"></i></div>
+            <div>
+              <p class="text-xs font-bold text-red-500 uppercase tracking-wide mb-1">Challenge</p>
+              <p class="text-slate-700 dark:text-slate-300 font-semibold text-sm">Bridging .NET MAUI native layer with Blazor web components.</p>
+            </div>
+          </div>
+          <div class="mt-4 flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-5 h-5 text-emerald-600"></i></div>
+            <div>
+              <p class="text-xs font-bold text-emerald-600 uppercase tracking-wide mb-1">Solution</p>
+              <p class="text-slate-500 dark:text-slate-400 text-sm">Used .NET MAUI Hybrid Blazor's WebView integration to seamlessly share Razor components between native and web layers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- KEY LEARNINGS -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-accent text-sm font-semibold tracking-widest uppercase mb-2">Takeaways</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Key Learnings</h2>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal text-center">
+          <i data-lucide="layers" class="w-7 h-7 text-accent mx-auto mb-3"></i>
+          <p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Full-Stack Development</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-1 text-center">
+          <i data-lucide="database" class="w-7 h-7 text-accent mx-auto mb-3"></i>
+          <p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Database Design</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-2 text-center">
+          <i data-lucide="smartphone" class="w-7 h-7 text-accent mx-auto mb-3"></i>
+          <p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Mobile Development</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal text-center">
+          <i data-lucide="bug" class="w-7 h-7 text-accent mx-auto mb-3"></i>
+          <p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Debugging</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-1 text-center">
+          <i data-lucide="layout" class="w-7 h-7 text-accent mx-auto mb-3"></i>
+          <p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">UI/UX Design</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-2 text-center">
+          <i data-lucide="git-branch" class="w-7 h-7 text-accent mx-auto mb-3"></i>
+          <p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Architecture</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT NAV -->
+  <div class="py-10 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <a href="index.html#projects" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-blue-400 font-medium text-sm transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to All Projects
+      </a>
+      <div class="flex gap-3">
+        <span class="text-slate-400 text-sm">Next:</span>
+        <a href="project-document-archiving.html" class="inline-flex items-center gap-2 text-accent dark:text-blue-400 font-semibold text-sm hover:underline">
+          Document Archiving System <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <div class="relative max-w-5xl w-full mx-4">
+        <button 
+        onclick="closeLightbox()" 
+        aria-label="Close lightbox"
+        class="absolute -top-10 right-0 text-white hover:text-slate-300">
+        <i data-lucide="x" class="w-7 h-7"></i>
+        </button>
+      <img id="lightboxImg" src="" alt="" class="w-full h-auto rounded-2xl shadow-2xl max-h-[85vh] object-contain" />
+      <p id="lightboxCaption" class="text-center text-slate-300 text-sm mt-3"></p>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('themeToggle').addEventListener('click',()=>{
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      lucide.createIcons();
+    });
+    const observer = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); }); },{ threshold:0.1 });
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    function openLightbox(src, caption) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxCaption').textContent = caption;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>

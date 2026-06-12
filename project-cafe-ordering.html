@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafe Web Ordering System — Carille B. Pabiona</title>
+  <script>
+    (function(){
+      var saved = localStorage.getItem('theme');
+      if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/cafe-ordering.css">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','sans-serif'], mono: ['JetBrains Mono','monospace'] },
+          colors: {
+            accent: { DEFAULT: '#2563eb', hover: '#1d4ed8', light: '#dbeafe', dark: '#1e40af' }
+          }
+        }
+      }
+    }
+  </script>
+  
+</head>
+<body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 antialiased">
+
+  <!-- STICKY NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200/60 dark:border-slate-800/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html#projects" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-blue-400 font-medium text-sm transition-colors">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Portfolio
+        </a>
+        <a href="index.html" class="font-mono font-semibold text-accent tracking-tight text-base">&lt;CBP /&gt;</a>
+        <button id="themeToggle" aria-label="Toggle dark mode" class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+          <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+          <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-yellow-400"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative pt-16 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]" style="background-image:radial-gradient(circle,#059669 1px,transparent 1px);background-size:28px 28px;"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-12">
+      <div class="reveal mb-4">
+        <span class="inline-flex items-center gap-2 bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
+          <i data-lucide="globe" class="w-3.5 h-3.5"></i> Website
+        </span>
+        <span class="ml-2 inline-flex items-center gap-2 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-xs font-bold px-3 py-1.5 rounded-full">
+          <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Completed · Academic Project
+        </span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-4 reveal reveal-delay-1">
+        Cafe Web<br /><span class="text-emerald-600 dark:text-emerald-400">Ordering System</span>
+      </h1>
+      <p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl mb-8 reveal reveal-delay-2">
+        A full-stack web-based cafe ordering platform built with ASP.NET Core Razor Pages — featuring QR code ordering, POS, Kitchen Display System, and real-time order synchronization.
+      </p>
+      <div class="flex flex-wrap gap-2 reveal reveal-delay-3">
+        <span class="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold px-3 py-1.5 rounded-lg">ASP.NET Core Razor</span>
+        <span class="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold px-3 py-1.5 rounded-lg">EF Core</span>
+        <span class="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold px-3 py-1.5 rounded-lg">SQL Server</span>
+        <span class="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold px-3 py-1.5 rounded-lg">Bootstrap</span>
+        <span class="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold px-3 py-1.5 rounded-lg">JavaScript</span>
+      </div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-0">
+      <div class="rounded-t-3xl overflow-hidden border border-b-0 border-slate-200 dark:border-slate-700 shadow-2xl cursor-pointer reveal" onclick="openLightbox('images/a.png','Cafe Web Ordering System — Banner')">
+        <div class="placeholder-img w-full h-72 sm:h-96 flex items-center justify-center relative">
+          <img src="images/a.png" alt="Cafe Ordering System" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+          <div class="relative z-10 text-center pointer-events-none">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- STATS -->
+  <section class="py-10 bg-slate-50/60 dark:bg-slate-900/40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="text-center reveal card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-emerald-600">6K+</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Lines of Code</div>
+        </div>
+        <div class="text-center reveal reveal-delay-1 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-emerald-600">5</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Core Modules</div>
+        </div>
+        <div class="text-center reveal reveal-delay-2 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-emerald-600">18+</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">DB Tables</div>
+        </div>
+        <div class="text-center reveal reveal-delay-1 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-emerald-600">25+</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Screens</div>
+        </div>
+        <div class="text-center reveal reveal-delay-2 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-emerald-600">3</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Months Dev</div>
+        </div>
+        <div class="text-center reveal reveal-delay-3 card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 py-5 px-3">
+          <div class="text-2xl font-extrabold text-emerald-600">QR</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Code Ordering</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- OVERVIEW -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-emerald-600 dark:text-emerald-400 text-sm font-semibold tracking-widest uppercase mb-2">Project Overview</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Problem · Solution · Outcome</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-red-100 dark:border-red-900/30 p-7 shadow-sm reveal">
+          <div class="w-12 h-12 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center mb-5">
+            <i data-lucide="alert-circle" class="w-6 h-6 text-red-500"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Problem</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Cafes faced slow table-side ordering, manual paper menus, and disconnected POS and kitchen workflows — resulting in long customer wait times, order mistakes, and no real-time visibility into kitchen operations.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-emerald-100 dark:border-emerald-900/30 p-7 shadow-sm reveal reveal-delay-1">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mb-5">
+            <i data-lucide="lightbulb" class="w-6 h-6 text-emerald-600"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Solution</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Developed a web-based system using ASP.NET Core where customers scan a QR code on their table to place orders, which are immediately pushed to both the POS and KDS for seamless processing and fulfillment.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-emerald-100 dark:border-emerald-900/30 p-7 shadow-sm reveal reveal-delay-2">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mb-5">
+            <i data-lucide="trending-up" class="w-6 h-6 text-emerald-600"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Outcome</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Created a fully connected cafe ecosystem — from customer QR ordering to kitchen fulfillment — eliminating manual steps and improving accuracy and speed. Delivered as a polished academic project showcasing web development expertise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- GALLERY -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-emerald-600 dark:text-emerald-400 text-sm font-semibold tracking-widest uppercase mb-2">Screenshots</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Project Gallery</h2>
+        <p class="text-slate-500 dark:text-slate-400 mt-3 text-sm">Click any image to view full-size.</p>
+      </div>
+      <div class="mb-4 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg cursor-pointer reveal" onclick="openLightbox('images/OmsCafe/p.png','Cafe Ordering — Main View')">
+        <div class="placeholder-img w-full h-64 sm:h-80 relative flex items-center justify-center">
+          <img src="images/OmsCafe/p.png" alt="Cafe Ordering System" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+          <div class="relative z-10 text-center pointer-events-none"><i data-lucide="monitor" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">Main Dashboard View</p></div>
+        </div>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal card-lift" onclick="openLightbox('images/OmsCafe/2.jpg','QR Menu')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/OmsCafe/2.jpg" alt="QR Menu" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="qr-code" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">QR Menu</p></div>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal reveal-delay-1 card-lift" onclick="openLightbox('images/OmsCafe/18.png','Kiosk')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/OmsCafe/18.png" alt="Kiosk" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="shopping-cart" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">Kiosk</p></div>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal reveal-delay-2 card-lift" onclick="openLightbox('images/OmsCafe/21.png','KDS Screen')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/OmsCafe/21.png" alt="KDS Screen" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="monitor" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">KDS Screen</p></div>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 cursor-pointer reveal reveal-delay-3 card-lift" onclick="openLightbox('images/OmsCafe/c.png','Menu Management')">
+          <div class="placeholder-img w-full h-32 relative flex items-center justify-center">
+            <img src="images/OmsCafe/c.png" alt="Menu Management" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="book-open" class="w-7 h-7 text-slate-300 dark:text-slate-600 mx-auto mb-1"></i><p class="text-slate-400 text-xs font-mono">Menu Management</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FEATURES -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-emerald-600 dark:text-emerald-400 text-sm font-semibold tracking-widest uppercase mb-2">Capabilities</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Key Features</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal text-center">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="qr-code" class="w-7 h-7 text-emerald-600"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">QR Ordering</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Customers scan a table QR code to access the digital menu and place orders directly from their phone.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center mx-auto mb-4"><i data-lucide="shopping-cart" class="w-7 h-7 text-accent"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">POS System</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Full point-of-sale interface for cashiers to handle payments, apply discounts, and close orders.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-2 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="monitor" class="w-7 h-7 text-orange-500"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Kitchen Display</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">KDS screen for kitchen crew to receive and update order status in real time.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="zap" class="w-7 h-7 text-violet-500"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Real-Time Sync</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Orders placed via QR instantly appear on POS and KDS without manual refresh.</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-2 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-4"><i data-lucide="book-open" class="w-7 h-7 text-emerald-600"></i></div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">Menu Management</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm">Admin panel for managing menu items, categories, prices, and item availability.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- TECH STACK -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-emerald-600 dark:text-emerald-400 text-sm font-semibold tracking-widest uppercase mb-2">Built With</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Technology Stack</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Frontend</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">HTML5</span>
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">CSS3</span>
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">JavaScript</span>
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">Razor Pages</span>
+            <span class="bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-800 text-xs font-semibold px-3 py-1.5 rounded-lg">Bootstrap</span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Backend</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold px-3 py-1.5 rounded-lg">ASP.NET Core</span>
+            <span class="bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold px-3 py-1.5 rounded-lg">C#</span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-2">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Database</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold px-3 py-1.5 rounded-lg">SQL Server</span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-3">
+          <h4 class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-4">Framework</h4>
+          <div class="flex flex-wrap gap-2">
+            <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 border border-accent/20 text-xs font-semibold px-3 py-1.5 rounded-lg">EF Core</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+ <!-- WALKTHROUGH -->
+<section class="py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-14 reveal">
+      <p class="text-emerald-600 dark:text-emerald-400 text-sm font-semibold tracking-widest uppercase mb-2">Tour</p>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">System Walkthrough</h2>
+    </div>
+    <div class="space-y-12">
+
+      <!-- 01 — Login -->
+      <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+        <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/OmsCafe/a.png','Login Page')">
+          <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+            <img src="images/OmsCafe/a.png" alt="Login" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="lock" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">Login Page — Replace with screenshot</p></div>
+          </div>
+        </div>
+        <div>
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">01 — Login</span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Staff Authentication</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Staff login with role-based routing — cashiers land on POS, kitchen staff on KDS, and admins on the management dashboard.</p>
+        </div>
+      </div>
+
+      <!-- 02 — QR Ordering -->
+      <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+        <div class="order-2 lg:order-1">
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">02 — QR Ordering</span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Customer QR Menu</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Customers scan the table QR code from any mobile browser to view the live menu, add items to cart, and submit orders without needing to install an app.</p>
+        </div>
+        <div class="order-1 lg:order-2 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/OmsCafe/menuQR.png','QR Menu')">
+          <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+            <img src="images/OmsCafe/menuQR.png" alt="QR Menu" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="qr-code" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">QR Menu View — Replace with screenshot</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 — Kiosk -->
+      <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+        <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/OmsCafe/kiosk.png','Kiosk')">
+          <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+            <img src="images/OmsCafe/kiosk.png" alt="Kiosk" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="tablet" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">Kiosk Screen</p></div>
+          </div>
+        </div>
+        <div>
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">03 — Kiosk</span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Self-Service Take-out Kiosk</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">A self-service ordering station placed at the counter where walk-in customers that order take-outs can browse the menu, customize their orders, and place them directly — reducing queue time and freeing up cashier workload.</p>
+        </div>
+      </div>
+
+      <!-- 04 — POS -->
+      <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+        <div class="order-2 lg:order-1">
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">04 — POS</span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Point of Sale Terminal</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Cashier interface showing all incoming orders. Handles payment processing, order confirmation, discount application, and receipt generation.</p>
+        </div>
+        <div class="order-1 lg:order-2 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/OmsCafe/cashier.png','POS Terminal')">
+          <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+            <img src="images/OmsCafe/cashier.png" alt="POS Terminal" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="shopping-cart" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">POS Terminal</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 — KDS -->
+      <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+        <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/OmsCafe/21.png','KDS Screen')">
+          <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+            <img src="images/OmsCafe/21.png" alt="KDS Screen" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="monitor" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">KDS Screen</p></div>
+          </div>
+        </div>
+        <div>
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">05 — KDS</span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Kitchen Display System</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Kitchen-side screen displaying all confirmed orders by table. Chefs mark each item through Preparing → Ready, and orders are reflected across the system in real time.</p>
+        </div>
+      </div>
+
+      <!-- 06 — Admin -->
+      <div class="grid lg:grid-cols-2 gap-8 items-center reveal">
+        <div class="order-2 lg:order-1">
+          <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider">06 — Admin</span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-3">Admin Dashboard</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">Management interface for configuring menu items, setting prices, managing tables and QR codes, and viewing sales reports and order history.</p>
+        </div>
+        <div class="order-1 lg:order-2 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-md cursor-pointer" onclick="openLightbox('images/OmsCafe/admin.png','Admin Dashboard')">
+          <div class="placeholder-img w-full h-56 relative flex items-center justify-center">
+            <img src="images/OmsCafe/admin.png" alt="Admin Dashboard" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+            <div class="relative z-10 text-center pointer-events-none"><i data-lucide="layout-dashboard" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-2"></i><p class="text-slate-400 text-xs font-mono">Admin Dashboard</p></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+  <div class="section-divider"></div>
+
+  <!-- TIMELINE -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-emerald-600 dark:text-emerald-400 text-sm font-semibold tracking-widest uppercase mb-2">Process</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Development Timeline</h2>
+      </div>
+      <div class="space-y-6">
+        <div class="flex gap-5 reveal"><div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center flex-shrink-0"><i data-lucide="file-search" class="w-5 h-5 text-white"></i></div><div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm"><h4 class="font-bold text-slate-900 dark:text-white">Planning & Research</h4><p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Analyzed real-world cafe workflows to identify pain points and define system requirements for QR ordering, POS, and KDS.</p></div></div>
+        <div class="flex gap-5 reveal reveal-delay-1"><div class="w-10 h-10 rounded-full bg-accent flex items-center justify-center flex-shrink-0"><i data-lucide="pen-tool" class="w-5 h-5 text-white"></i></div><div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm"><h4 class="font-bold text-slate-900 dark:text-white">UI/UX Design</h4><p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Designed all page layouts for customer-facing QR menu, cashier POS, kitchen KDS, and admin management pages using Bootstrap.</p></div></div>
+        <div class="flex gap-5 reveal reveal-delay-2"><div class="w-10 h-10 rounded-full bg-slate-600 flex items-center justify-center flex-shrink-0"><i data-lucide="database" class="w-5 h-5 text-white"></i></div><div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm"><h4 class="font-bold text-slate-900 dark:text-white">Database Design</h4><p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Built SQL Server schema covering orders, items, tables, users, and QR code assignments. Configured EF Core models and migrations.</p></div></div>
+        <div class="flex gap-5 reveal"><div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center flex-shrink-0"><i data-lucide="code-2" class="w-5 h-5 text-white"></i></div><div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm"><h4 class="font-bold text-slate-900 dark:text-white">Development</h4><p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Implemented all modules with ASP.NET Core Razor Pages, wired up EF Core for data access, and built the QR code generation and order routing logic.</p></div></div>
+        <div class="flex gap-5 reveal reveal-delay-1"><div class="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center flex-shrink-0"><i data-lucide="bug" class="w-5 h-5 text-white"></i></div><div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm"><h4 class="font-bold text-slate-900 dark:text-white">Testing</h4><p class="text-slate-500 dark:text-slate-400 text-sm mt-1">End-to-end testing of the QR → POS → KDS order flow, validated sync accuracy, and fixed edge cases in order status transitions.</p></div></div>
+        <div class="flex gap-5 reveal reveal-delay-2"><div class="w-10 h-10 rounded-full bg-emerald-700 flex items-center justify-center flex-shrink-0"><i data-lucide="rocket" class="w-5 h-5 text-white"></i></div><div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 flex-1 shadow-sm"><h4 class="font-bold text-slate-900 dark:text-white">Deployment & Demo</h4><p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Deployed locally for academic presentation with a full live demonstration of the QR-to-kitchen workflow.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CHALLENGES -->
+  <section class="py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-emerald-600 dark:text-emerald-400 text-sm font-semibold tracking-widest uppercase mb-2">Learnings</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Challenges & Solutions</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal">
+          <div class="flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="alert-triangle" class="w-5 h-5 text-red-500"></i></div><div><p class="text-xs font-bold text-red-500 uppercase tracking-wide mb-1">Challenge</p><p class="text-slate-700 dark:text-slate-300 font-semibold text-sm">Keeping POS and KDS in sync after QR order submission without page refresh.</p></div></div>
+          <div class="mt-4 flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-5 h-5 text-emerald-600"></i></div><div><p class="text-xs font-bold text-emerald-600 uppercase tracking-wide mb-1">Solution</p><p class="text-slate-500 dark:text-slate-400 text-sm">Used JavaScript polling with AJAX to periodically fetch new orders from the server and update the POS and KDS displays automatically.</p></div></div>
+        </div>
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1">
+          <div class="flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="alert-triangle" class="w-5 h-5 text-red-500"></i></div><div><p class="text-xs font-bold text-red-500 uppercase tracking-wide mb-1">Challenge</p><p class="text-slate-700 dark:text-slate-300 font-semibold text-sm">Generating unique QR codes per table and routing orders correctly.</p></div></div>
+          <div class="mt-4 flex items-start gap-4"><div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-5 h-5 text-emerald-600"></i></div><div><p class="text-xs font-bold text-emerald-600 uppercase tracking-wide mb-1">Solution</p><p class="text-slate-500 dark:text-slate-400 text-sm">Generated table-specific URL tokens encoded as QR codes. Each token maps to a table record in SQL Server, ensuring orders are tagged with the correct table ID.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY LEARNINGS -->
+  <section class="py-20 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14 reveal">
+        <p class="text-emerald-600 dark:text-emerald-400 text-sm font-semibold tracking-widest uppercase mb-2">Takeaways</p>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Key Learnings</h2>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal text-center"><i data-lucide="layers" class="w-7 h-7 text-emerald-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Full-Stack Web Dev</p></div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-1 text-center"><i data-lucide="database" class="w-7 h-7 text-emerald-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Database Design</p></div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-2 text-center"><i data-lucide="qr-code" class="w-7 h-7 text-emerald-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">QR Integration</p></div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal text-center"><i data-lucide="zap" class="w-7 h-7 text-emerald-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Real-Time Systems</p></div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-1 text-center"><i data-lucide="layout" class="w-7 h-7 text-emerald-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">UI/UX Design</p></div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-2 text-center"><i data-lucide="git-branch" class="w-7 h-7 text-emerald-600 mx-auto mb-3"></i><p class="text-slate-700 dark:text-slate-300 text-xs font-semibold">Architecture</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT NAV -->
+  <div class="py-10 border-t border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <a href="project-document-archiving.html" class="inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-accent dark:hover:text-blue-400 font-medium text-sm transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> Document Archiving System
+      </a>
+      <a href="index.html#projects" class="inline-flex items-center gap-2 text-accent dark:text-blue-400 font-semibold text-sm hover:underline">
+        All Projects <i data-lucide="grid" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+    <div class="relative max-w-5xl w-full mx-4">
+        <button 
+        onclick="closeLightbox()" 
+        aria-label="Close lightbox"
+        class="absolute -top-10 right-0 text-white hover:text-slate-300">
+        <i data-lucide="x" class="w-7 h-7"></i>
+        </button>
+      <img id="lightboxImg" src="" alt="" class="w-full h-auto rounded-2xl shadow-2xl max-h-[85vh] object-contain" />
+      <p id="lightboxCaption" class="text-center text-slate-300 text-sm mt-3"></p>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('themeToggle').addEventListener('click',()=>{
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      lucide.createIcons();
+    });
+    const observer = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); }); },{ threshold:0.1 });
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+    function openLightbox(src, caption) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxCaption').textContent = caption;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>

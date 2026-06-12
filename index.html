@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carille B. Pabiona — Software Developer</title>
+
+  <!-- FOUC prevention: apply dark mode before paint -->
+  <script>
+    (function(){
+      var saved = localStorage.getItem('theme');
+      if(saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)){
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            accent: {
+              DEFAULT: '#2563eb',
+              hover: '#1d4ed8',
+              light: '#dbeafe',
+              dark: '#1e40af',
+            }
+          },
+          animation: {
+            'blink': 'blink 1s step-end infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'fade-up': 'fadeUp 0.6s ease forwards',
+            'shake': 'shake 0.4s ease',
+          },
+          keyframes: {
+            blink: { '0%,100%': { opacity: '1' }, '50%': { opacity: '0' } },
+            float: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-12px)' } },
+            fadeUp: { 'from': { opacity: '0', transform: 'translateY(24px)' }, 'to': { opacity: '1', transform: 'translateY(0)' } },
+            shake: { '0%,100%': { transform: 'translateX(0)' }, '20%': { transform: 'translateX(-6px)' }, '60%': { transform: 'translateX(6px)' } },
+          }
+        }
+      }
+    }
+  </script>
+
+</head>
+
+<body class="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 antialiased">
+
+  <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-200/60 dark:border-slate-800/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="#home" class="font-mono font-semibold text-accent tracking-tight text-base">
+          &lt;CBP /&gt;
+        </a>
+        <div class="hidden lg:flex items-center gap-1">
+          <a href="#home" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-blue-400 rounded-lg hover:bg-accent-light/50 dark:hover:bg-blue-900/30 transition-all">Home</a>
+          <a href="#about" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-blue-400 rounded-lg hover:bg-accent-light/50 dark:hover:bg-blue-900/30 transition-all">About</a>
+          <a href="#skills" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-blue-400 rounded-lg hover:bg-accent-light/50 dark:hover:bg-blue-900/30 transition-all">Skills</a>
+          <a href="#experience" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-blue-400 rounded-lg hover:bg-accent-light/50 dark:hover:bg-blue-900/30 transition-all">Experience</a>
+          <a href="#projects" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-blue-400 rounded-lg hover:bg-accent-light/50 dark:hover:bg-blue-900/30 transition-all">Projects</a>
+          <a href="#awards" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-blue-400 rounded-lg hover:bg-accent-light/50 dark:hover:bg-blue-900/30 transition-all">Awards</a>
+          <a href="#certifications" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-blue-400 rounded-lg hover:bg-accent-light/50 dark:hover:bg-blue-900/30 transition-all">Certifications</a>
+          <a href="#contact" class="nav-link px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-accent dark:hover:text-blue-400 rounded-lg hover:bg-accent-light/50 dark:hover:bg-blue-900/30 transition-all">Contact</a>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="themeToggle" aria-label="Toggle dark mode"
+            class="p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+            <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+            <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-yellow-400"></i>
+          </button>
+          <button id="menuToggle" aria-label="Open menu"
+            class="lg:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+            <i data-lucide="menu" class="w-5 h-5" id="menuIcon"></i>
+            <i data-lucide="x" class="w-5 h-5 hidden" id="closeIcon"></i>
+          </button>
+        </div>
+      </div>
+      <div id="mobileMenu" class="lg:hidden border-t border-slate-200/60 dark:border-slate-800/60">
+        <div class="py-3 space-y-1 px-1">
+          <a href="#home" class="mobile-link block px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent hover:bg-accent-light/40 dark:hover:bg-blue-900/30 rounded-xl transition-all">Home</a>
+          <a href="#about" class="mobile-link block px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent hover:bg-accent-light/40 dark:hover:bg-blue-900/30 rounded-xl transition-all">About</a>
+          <a href="#skills" class="mobile-link block px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent hover:bg-accent-light/40 dark:hover:bg-blue-900/30 rounded-xl transition-all">Skills</a>
+          <a href="#experience" class="mobile-link block px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent hover:bg-accent-light/40 dark:hover:bg-blue-900/30 rounded-xl transition-all">Experience</a>
+          <a href="#projects" class="mobile-link block px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent hover:bg-accent-light/40 dark:hover:bg-blue-900/30 rounded-xl transition-all">Projects</a>
+          <a href="#awards" class="mobile-link block px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent hover:bg-accent-light/40 dark:hover:bg-blue-900/30 rounded-xl transition-all">Awards</a>
+          <a href="#certifications" class="mobile-link block px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent hover:bg-accent-light/40 dark:hover:bg-blue-900/30 rounded-xl transition-all">Certifications</a>
+          <a href="#contact" class="mobile-link block px-4 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent hover:bg-accent-light/40 dark:hover:bg-blue-900/30 rounded-xl transition-all">Contact</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <section id="home" class="relative min-h-screen flex items-center pt-16 overflow-hidden">
+    <div class="blob w-96 h-96 bg-blue-200/40 dark:bg-blue-900/25 top-20 -left-32" style="position:absolute;"></div>
+    <div class="blob w-72 h-72 bg-indigo-200/30 dark:bg-indigo-900/20 bottom-20 right-0" style="position:absolute;"></div>
+    <div class="blob w-48 h-48 bg-sky-200/30 dark:bg-sky-900/20 top-1/2 left-1/3" style="position:absolute;"></div>
+    <div class="absolute inset-0 opacity-[0.04] dark:opacity-[0.06]"
+      style="background-image: radial-gradient(circle, #2563eb 1px, transparent 1px); background-size: 28px 28px;"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="order-2 lg:order-1">
+          <div class="inline-flex items-center gap-2 bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 text-xs font-semibold tracking-widest uppercase px-4 py-2 rounded-full mb-6 reveal">
+            <span class="w-2 h-2 rounded-full bg-accent dark:bg-blue-400 animate-pulse"></span>
+            Available for opportunities
+          </div>
+          <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-slate-900 dark:text-white leading-tight tracking-tight mb-4 reveal reveal-delay-1">
+            Carille B.<br />
+            <span class="text-accent">Pabiona<span class="cursor"></span></span>
+          </h1>
+          <div class="flex flex-wrap gap-2 mb-6 reveal reveal-delay-2">
+            <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-medium px-3 py-1 rounded-lg">Aspiring Software Developer</span>
+            <span class="bg-accent-light dark:bg-blue-900/50 text-accent dark:text-blue-300 text-sm font-medium px-3 py-1 rounded-lg">Full-Stack Web Dev</span>
+            <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-medium px-3 py-1 rounded-lg">IT Graduate</span>
+          </div>
+          <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed max-w-xl mb-8 reveal reveal-delay-3">
+            Recent BS Information Technology graduate with hands-on experience building real-world systems using <span class="text-accent font-medium">ASP.NET Core</span>, <span class="text-accent font-medium">.NET MAUI Blazor</span>, <span class="text-accent font-medium">C#</span>, and <span class="text-accent font-medium">SQL Server</span>. Passionate about software that solves actual problems.
+          </p>
+          <div class="flex flex-wrap gap-3 reveal reveal-delay-4">
+            <a href="#projects"
+              class="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200">
+              <i data-lucide="code-2" class="w-4 h-4"></i>
+              View Projects
+            </a>
+            <a href="#"
+              class="inline-flex items-center gap-2 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-accent hover:text-accent dark:hover:border-blue-400 dark:hover:text-blue-400 font-semibold px-6 py-3 rounded-xl transition-all duration-200"
+              download>
+              <i data-lucide="download" class="w-4 h-4"></i>
+              Download Resume
+            </a>
+          </div>
+          <div class="grid grid-cols-3 gap-4 mt-12 reveal">
+            <div class="text-center">
+              <div class="text-3xl font-extrabold text-accent">3+</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Projects Built</div>
+            </div>
+            <div class="text-center border-x border-slate-200 dark:border-slate-800">
+              <div class="text-3xl font-extrabold text-accent">8+</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Awards Won</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-extrabold text-accent">4</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Certifications</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="order-1 lg:order-2 flex justify-center lg:justify-end reveal">
+          <div class="relative">
+            <div class="absolute -inset-3 rounded-3xl bg-gradient-to-br from-accent/30 to-indigo-500/20 blur-xl"></div>
+            <div class="relative w-72 h-80 sm:w-80 sm:h-96 lg:w-80 lg:h-[420px] rounded-3xl overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 border-2 border-white dark:border-slate-700 shadow-2xl flex flex-col items-center justify-center gap-3"
+              id="profilePhotoArea">
+              <!-- Replace this div with: <img src="your-photo.jpg" alt="Carille B. Pabiona" class="w-full h-full object-cover" /> -->
+              <div class="w-20 h-20 rounded-2xl bg-accent/15 dark:bg-blue-900/50 flex items-center justify-center">
+                <i data-lucide="user" class="w-10 h-10 text-accent/60 dark:text-blue-400/60"></i>
+              </div>
+              <p class="text-xs text-slate-400 dark:text-slate-600 font-mono text-center px-6"><img src="images/photo.JPG" alt="Carille B. Pabiona" class="w-full h-full object-cover" /></p>
+            </div>
+            <div class="absolute -bottom-4 -left-4 glass rounded-2xl px-4 py-3 shadow-xl border border-white/50 dark:border-slate-700/60">
+              <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Based in</div>
+              <div class="text-sm font-bold text-slate-800 dark:text-white">Quezon City, 🇵🇭</div>
+            </div>
+            <div class="absolute -top-4 -right-4 glass rounded-2xl px-4 py-3 shadow-xl border border-white/50 dark:border-slate-700/60">
+              <div class="flex items-center gap-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></div>
+                <span class="text-sm font-bold text-slate-800 dark:text-white">Open to Work</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-slate-400 animate-bounce">
+      <span class="text-xs font-medium tracking-widest uppercase">Scroll</span>
+      <i data-lucide="chevron-down" class="w-4 h-4"></i>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+ <!-- ═══════════════════════ ABOUT ═══════════════════════ -->
+<section id="about" class="py-24 bg-slate-50/50 dark:bg-slate-900/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 reveal">
+      <p class="text-accent dark:text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">Get to know me</p>
+      <h2 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white">About Me</h2>
+    </div>
+    <div class="reveal">
+      <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Building solutions that matter.</h3>
+      <div class="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+        <p>I'm a fresh graduate with a Bachelor of Science in Information Technology from <span class="font-semibold text-slate-800 dark:text-slate-200">STI College</span>. During my studies, I developed strong hands-on skills in full-stack web and mobile application development.</p>
+        <p>My passion lies in engineering complete software systems — from designing databases to crafting responsive front-ends. I've built real projects using <span class="font-semibold text-accent">ASP.NET Core</span>, <span class="font-semibold text-accent">.NET MAUI Hybrid Blazor</span>, and relational databases including SQL Server and MariaDB.</p>
+        <p>I recently completed an internship at the <span class="font-semibold text-slate-800 dark:text-slate-200">Development Bank of the Philippines</span> (February–June 2026), where I contributed to HR information systems and documentation workflows.</p>
+      </div>
+      <div class="mt-6 flex flex-wrap gap-2">
+        <span class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm px-4 py-1.5 rounded-full font-medium">⚙️ Full-Stack Dev</span>
+        <span class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm px-4 py-1.5 rounded-full font-medium">📱 Mobile Apps</span>
+        <span class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm px-4 py-1.5 rounded-full font-medium">🗄️ Database Design</span>
+        <span class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-sm px-4 py-1.5 rounded-full font-medium">🧩 Problem Solving</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ SKILLS ═══════════════════════ -->
+  <section id="skills" class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <p class="text-accent dark:text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">What I work with</p>
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white">Skills & Technologies</h2>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Software Development -->
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center">
+              <i data-lucide="layers" class="w-5 h-5 text-accent dark:text-blue-400"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base">Software Development</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium px-3 py-1.5 rounded-lg">Full-Stack Web Dev</span>
+            <span class="skill-badge bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium px-3 py-1.5 rounded-lg">Mobile App Dev</span>
+            <span class="skill-badge bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium px-3 py-1.5 rounded-lg">REST API Integration</span>
+            <span class="skill-badge bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium px-3 py-1.5 rounded-lg">Testing & Debugging</span>
+            <span class="skill-badge bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium px-3 py-1.5 rounded-lg">Technical Documentation</span>
+            <span class="skill-badge bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium px-3 py-1.5 rounded-lg">System Troubleshooting</span>
+          </div>
+        </div>
+        <!-- Programming Languages -->
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center">
+              <i data-lucide="code" class="w-5 h-5 text-accent dark:text-blue-400"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base">Programming Languages</h3>
+          </div>
+          <div class="space-y-3">
+            <div class="skill-progress-item" data-width="88">
+              <div class="flex justify-between text-xs font-medium mb-1.5">
+                <span class="text-slate-700 dark:text-slate-300">C#</span><span class="text-accent">88%</span>
+              </div>
+              <div class="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div class="progress-bar h-full bg-gradient-to-r from-accent to-blue-400 rounded-full w-0"></div>
+              </div>
+            </div>
+            <div class="skill-progress-item" data-width="80">
+              <div class="flex justify-between text-xs font-medium mb-1.5">
+                <span class="text-slate-700 dark:text-slate-300">JavaScript</span><span class="text-accent">80%</span>
+              </div>
+              <div class="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div class="progress-bar h-full bg-gradient-to-r from-accent to-blue-400 rounded-full w-0"></div>
+              </div>
+            </div>
+            <div class="skill-progress-item" data-width="90">
+              <div class="flex justify-between text-xs font-medium mb-1.5">
+                <span class="text-slate-700 dark:text-slate-300">HTML5</span><span class="text-accent">90%</span>
+              </div>
+              <div class="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div class="progress-bar h-full bg-gradient-to-r from-accent to-blue-400 rounded-full w-0"></div>
+              </div>
+            </div>
+            <div class="skill-progress-item" data-width="85">
+              <div class="flex justify-between text-xs font-medium mb-1.5">
+                <span class="text-slate-700 dark:text-slate-300">CSS3</span><span class="text-accent">85%</span>
+              </div>
+              <div class="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div class="progress-bar h-full bg-gradient-to-r from-accent to-blue-400 rounded-full w-0"></div>
+              </div>
+            </div>
+            <div class="skill-progress-item" data-width="82">
+              <div class="flex justify-between text-xs font-medium mb-1.5">
+                <span class="text-slate-700 dark:text-slate-300">SQL</span><span class="text-accent">82%</span>
+              </div>
+              <div class="h-2 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div class="progress-bar h-full bg-gradient-to-r from-accent to-blue-400 rounded-full w-0"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Frameworks -->
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-2">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center">
+              <i data-lucide="cpu" class="w-5 h-5 text-accent dark:text-blue-400"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base">Frameworks & Technologies</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge bg-blue-50 dark:bg-blue-900/30 text-accent dark:text-blue-300 border border-accent/20 text-xs font-medium px-3 py-1.5 rounded-lg">ASP.NET Core Razor</span>
+            <span class="skill-badge bg-blue-50 dark:bg-blue-900/30 text-accent dark:text-blue-300 border border-accent/20 text-xs font-medium px-3 py-1.5 rounded-lg">.NET MAUI Hybrid Blazor</span>
+            <span class="skill-badge bg-blue-50 dark:bg-blue-900/30 text-accent dark:text-blue-300 border border-accent/20 text-xs font-medium px-3 py-1.5 rounded-lg">Entity Framework Core</span>
+            <span class="skill-badge bg-blue-50 dark:bg-blue-900/30 text-accent dark:text-blue-300 border border-accent/20 text-xs font-medium px-3 py-1.5 rounded-lg">Bootstrap</span>
+          </div>
+        </div>
+        <!-- Database -->
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center">
+              <i data-lucide="database" class="w-5 h-5 text-accent dark:text-blue-400"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base">Database Management</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-xs font-medium px-3 py-1.5 rounded-lg">SQL Server</span>
+            <span class="skill-badge bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-xs font-medium px-3 py-1.5 rounded-lg">MariaDB</span>
+            <span class="skill-badge bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-xs font-medium px-3 py-1.5 rounded-lg">SQLite</span>
+            <span class="skill-badge bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-xs font-medium px-3 py-1.5 rounded-lg">Database Design</span>
+            <span class="skill-badge bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 text-xs font-medium px-3 py-1.5 rounded-lg">Query Optimization</span>
+          </div>
+        </div>
+        <!-- Dev Tools -->
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-2">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center">
+              <i data-lucide="wrench" class="w-5 h-5 text-accent dark:text-blue-400"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base">Development Tools</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 text-xs font-medium px-3 py-1.5 rounded-lg">Visual Studio</span>
+            <span class="skill-badge bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 text-xs font-medium px-3 py-1.5 rounded-lg">VS Code</span>
+            <span class="skill-badge bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 text-xs font-medium px-3 py-1.5 rounded-lg">Git</span>
+            <span class="skill-badge bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 text-xs font-medium px-3 py-1.5 rounded-lg">GitHub</span>
+            <span class="skill-badge bg-violet-50 dark:bg-violet-900/20 text-violet-700 dark:text-violet-400 border border-violet-200 dark:border-violet-800 text-xs font-medium px-3 py-1.5 rounded-lg">Microsoft Office</span>
+          </div>
+        </div>
+        <!-- Soft Skills -->
+        <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-3">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-10 h-10 rounded-xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center">
+              <i data-lucide="users" class="w-5 h-5 text-accent dark:text-blue-400"></i>
+            </div>
+            <h3 class="font-bold text-slate-900 dark:text-white text-base">Soft Skills</h3>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-800 text-xs font-medium px-3 py-1.5 rounded-lg">🤝 Team Collaboration</span>
+            <span class="skill-badge bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-800 text-xs font-medium px-3 py-1.5 rounded-lg">💬 Communication</span>
+            <span class="skill-badge bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-800 text-xs font-medium px-3 py-1.5 rounded-lg">⏰ Time Management</span>
+            <span class="skill-badge bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-800 text-xs font-medium px-3 py-1.5 rounded-lg">🔍 Analytical Thinking</span>
+            <span class="skill-badge bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-800 text-xs font-medium px-3 py-1.5 rounded-lg">⚡ Fast Learner</span>
+            <span class="skill-badge bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-800 text-xs font-medium px-3 py-1.5 rounded-lg">🎯 Self-Motivated</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ EXPERIENCE ═══════════════════════ -->
+  <section id="experience" class="py-24 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <p class="text-accent dark:text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">My journey</p>
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white">Experience</h2>
+      </div>
+      <div class="max-w-3xl mx-auto">
+        <div class="relative border-l-2 border-accent/30 dark:border-blue-700/40 pl-8 space-y-12">
+          <!-- Item 1 -->
+          <div class="timeline-item relative reveal">
+            <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
+              <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                <div>
+                  <span class="inline-block bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 text-xs font-semibold px-3 py-1 rounded-full mb-2">Internship</span>
+                  <h3 class="text-lg font-bold text-slate-900 dark:text-white">Development Bank of the Philippines</h3>
+                  <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Human Resources Information Systems</p>
+                </div>
+                <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-3 py-1.5 rounded-full whitespace-nowrap">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                  Feb 2026 – Jun 2026
+                </div>
+              </div>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2.5 text-slate-600 dark:text-slate-400 text-sm">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-accent dark:text-blue-400 mt-0.5 flex-shrink-0"></i>
+                  Maintained and updated HRIS employee records
+                </li>
+                <li class="flex items-start gap-2.5 text-slate-600 dark:text-slate-400 text-sm">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-accent dark:text-blue-400 mt-0.5 flex-shrink-0"></i>
+                  Assisted in employee movements, reassignments, and department head assignments
+                </li>
+                <li class="flex items-start gap-2.5 text-slate-600 dark:text-slate-400 text-sm">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-accent dark:text-blue-400 mt-0.5 flex-shrink-0"></i>
+                  Processed Officer-in-Charge designations and personnel documentation
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Item 2 -->
+          <div class="timeline-item relative reveal reveal-delay-1">
+            <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
+              <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                <div>
+                  <span class="inline-block bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-xs font-semibold px-3 py-1 rounded-full mb-2">Secretary</span>
+                  <h3 class="text-lg font-bold text-slate-900 dark:text-white">Community of Information Technology Enthusiasts</h3>
+                  <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">STI College Student Organization</p>
+                </div>
+                <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-3 py-1.5 rounded-full whitespace-nowrap">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                  2022 – 2023
+                </div>
+              </div>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2.5 text-slate-600 dark:text-slate-400 text-sm">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-accent dark:text-blue-400 mt-0.5 flex-shrink-0"></i>
+                  Managed documentation, meeting records, and activity reports
+                </li>
+                <li class="flex items-start gap-2.5 text-slate-600 dark:text-slate-400 text-sm">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-accent dark:text-blue-400 mt-0.5 flex-shrink-0"></i>
+                  Handled communications and event coordination for the organization
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- Item 3 -->
+          <div class="timeline-item relative reveal reveal-delay-2">
+            <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
+              <div class="flex flex-wrap items-start justify-between gap-3 mb-3">
+                <div>
+                  <span class="inline-block bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs font-semibold px-3 py-1 rounded-full mb-2">Volunteer Member</span>
+                  <h3 class="text-lg font-bold text-slate-900 dark:text-white">Diwa ng Kabataan</h3>
+                  <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Community Youth Organization</p>
+                </div>
+                <div class="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-3 py-1.5 rounded-full whitespace-nowrap">
+                  <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                  2019 – 2020
+                </div>
+              </div>
+              <ul class="space-y-2">
+                <li class="flex items-start gap-2.5 text-slate-600 dark:text-slate-400 text-sm">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-accent dark:text-blue-400 mt-0.5 flex-shrink-0"></i>
+                  Assisted in Christmas outreach activities and event logistics
+                </li>
+                <li class="flex items-start gap-2.5 text-slate-600 dark:text-slate-400 text-sm">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-accent dark:text-blue-400 mt-0.5 flex-shrink-0"></i>
+                  Contributed to community engagement programs
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ PROJECTS ═══════════════════════ -->
+  <section id="projects" class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <p class="text-accent dark:text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">What I've built</p>
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white">Projects</h2>
+        <p class="text-slate-500 dark:text-slate-400 mt-4 max-w-xl mx-auto">Real-world systems designed and developed from the ground up.</p>
+      </div>
+      <div class="grid lg:grid-cols-3 gap-8">
+        <!-- Project 1 -->
+        <div class="project-card bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm reveal">
+          <div class="relative h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 flex flex-col items-center justify-center gap-2 border-b border-slate-200 dark:border-slate-700">
+            <!-- Replace with: <img src="project1-screenshot.jpg" alt="Ordering System" class="w-full h-full object-cover" /> -->
+            <div class="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center">
+              <i data-lucide="smartphone" class="w-7 h-7 text-accent/60"></i>
+            </div>
+            <p class="text-xs text-slate-400 dark:text-slate-600 font-mono"><img src="images/DigiDine.png" alt="Ordering System" class="w-full h-full object-cover" /></p>
+            <div class="absolute top-3 left-3 bg-accent text-white text-xs font-bold px-2.5 py-1 rounded-lg">Mobile</div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Ordering Mobile Management System</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-4 leading-relaxed">Digital restaurant management solution featuring a full POS, Kitchen Display System, and menu ordering workflows.</p>
+            <div class="mb-4">
+              <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">Key Features</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">POS</span>
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">KDS</span>
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">Menu Ordering</span>
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">Real-time Orders</span>
+              </div>
+            </div>
+            <div class="mb-5">
+              <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">Tech Stack</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 text-xs px-2 py-1 rounded-md font-medium">.NET MAUI Blazor</span>
+                <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 text-xs px-2 py-1 rounded-md font-medium">C#</span>
+                <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 text-xs px-2 py-1 rounded-md font-medium">MariaDB</span>
+                <span class="bg-accent-light dark:bg-blue-900/40 text-accent dark:text-blue-300 text-xs px-2 py-1 rounded-md font-medium">SQLite</span>
+              </div>
+            </div>
+              <a href="project-ordering-mobile.html" class="w-full flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-white text-sm font-semibold py-2.5 rounded-xl transition-colors">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                View Details
+              </a>
+          </div>
+        </div>
+        <!-- Project 2 -->
+        <div class="project-card bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm reveal reveal-delay-1">
+          <div class="relative h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 flex flex-col items-center justify-center gap-2 border-b border-slate-200 dark:border-slate-700">
+            <!-- Replace with: <img src="project2-screenshot.jpg" alt="Archiving System" class="w-full h-full object-cover" /> -->
+            <div class="w-14 h-14 rounded-2xl bg-violet-500/10 flex items-center justify-center">
+              <i data-lucide="archive" class="w-7 h-7 text-violet-500/60"></i>
+            </div>
+            <p class="text-xs text-slate-400 dark:text-slate-600 font-mono"><img src="images/2.png" alt="Archiving System" class="w-full h-full object-cover" /></p>
+            <div class="absolute top-3 left-3 bg-violet-600 text-white text-xs font-bold px-2.5 py-1 rounded-lg">App</div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Document Archiving & Security Management System</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-4 leading-relaxed">Digitizes and centralizes organizational records with role-based access control and secure document storage.</p>
+            <div class="mb-4">
+              <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">Key Features</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">Doc Archiving</span>
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">Access Control</span>
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">Secure Storage</span>
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">Fast Retrieval</span>
+              </div>
+            </div>
+            <div class="mb-5">
+              <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">Tech Stack</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-xs px-2 py-1 rounded-md font-medium">ASP.NET Core</span>
+                <span class="bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-xs px-2 py-1 rounded-md font-medium">C#</span>
+                <span class="bg-violet-50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-xs px-2 py-1 rounded-md font-medium">SQL Server</span>
+              </div>
+            </div>
+              <a href="project-document-archiving.html" class="w-full flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-700 text-white text-sm font-semibold py-2.5 rounded-xl transition-colors">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                View Details
+              </a>
+          </div>
+        </div>
+        <!-- Project 3 -->
+        <div class="project-card bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm reveal reveal-delay-2">
+          <div class="relative h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 flex flex-col items-center justify-center gap-2 border-b border-slate-200 dark:border-slate-700">
+            <!-- Replace with: <img src="project3-screenshot.jpg" alt="Cafe Ordering System" class="w-full h-full object-cover" /> -->
+            <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center">
+              <i data-lucide="coffee" class="w-7 h-7 text-emerald-500/60"></i>
+            </div>
+            <p class="text-xs text-slate-400 dark:text-slate-600 font-mono"><img src="images/a.png" alt="Cafe Ordering System" class="w-full h-full object-cover" /></p>
+            <div class="absolute top-3 left-3 bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded-lg">Web</div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Cafe Web Ordering System</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-4 leading-relaxed">Web-based cafe ordering platform with QR code ordering, POS integration, and real-time Kitchen Display System.</p>
+            <div class="mb-4">
+              <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">Key Features</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">QR Ordering</span>
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">POS</span>
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">KDS</span>
+                <span class="bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs px-2 py-1 rounded-md">Real-time Sync</span>
+              </div>
+            </div>
+            <div class="mb-5">
+              <p class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-2">Tech Stack</p>
+              <div class="flex flex-wrap gap-1.5">
+                <span class="bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs px-2 py-1 rounded-md font-medium">ASP.NET Core Razor</span>
+                <span class="bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs px-2 py-1 rounded-md font-medium">EF Core</span>
+                <span class="bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs px-2 py-1 rounded-md font-medium">SQL Server</span>
+                <span class="bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 text-xs px-2 py-1 rounded-md font-medium">Bootstrap</span>
+              </div>
+            </div>
+              <a href="project-cafe-ordering.html" class="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold py-2.5 rounded-xl transition-colors">
+                <i data-lucide="external-link" class="w-4 h-4"></i>
+                View Details
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ AWARDS ═══════════════════════ -->
+  <section id="awards" class="py-24 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <p class="text-accent dark:text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">Recognitions</p>
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white">Awards & Achievements</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-yellow-200 dark:border-yellow-700/40 p-5 shadow-sm reveal">
+          <div class="w-12 h-12 rounded-2xl bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center mb-4">
+            <i data-lucide="trophy" class="w-6 h-6 text-yellow-600 dark:text-yellow-400"></i>
+          </div>
+          <span class="text-xs font-bold text-yellow-600 dark:text-yellow-400 uppercase tracking-wider">Champion</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-1 mb-1 text-sm leading-snug">Best Game Development</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-xs">STI College · 2025–2026</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-yellow-200 dark:border-yellow-700/40 p-5 shadow-sm reveal reveal-delay-1">
+          <div class="w-12 h-12 rounded-2xl bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center mb-4">
+            <i data-lucide="medal" class="w-6 h-6 text-yellow-600 dark:text-yellow-400"></i>
+          </div>
+          <span class="text-xs font-bold text-yellow-600 dark:text-yellow-400 uppercase tracking-wider">1st Place</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-1 mb-1 text-sm leading-snug">PC Assembly & Network Cable Contest</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-xs">2019–2020</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-2">
+          <div class="w-12 h-12 rounded-2xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center mb-4">
+            <i data-lucide="file-text" class="w-6 h-6 text-accent dark:text-blue-400"></i>
+          </div>
+          <span class="text-xs font-bold text-accent dark:text-blue-400 uppercase tracking-wider">Best In</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-1 mb-1 text-sm leading-snug">Best Site Documentation</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-xs">STI College · 2024–2025</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-3">
+          <div class="w-12 h-12 rounded-2xl bg-accent-light dark:bg-blue-900/40 flex items-center justify-center mb-4">
+            <i data-lucide="code-2" class="w-6 h-6 text-accent dark:text-blue-400"></i>
+          </div>
+          <span class="text-xs font-bold text-accent dark:text-blue-400 uppercase tracking-wider">Best In</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-1 mb-1 text-sm leading-snug">Best in JavaScript Debugging</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-xs">STI College · 2024–2025</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal">
+          <div class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mb-4">
+            <i data-lucide="award" class="w-6 h-6 text-orange-600 dark:text-orange-400"></i>
+          </div>
+          <span class="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase tracking-wider">2nd Runner Up</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-1 mb-1 text-sm leading-snug">Code Fest Tagisan ng Talino</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-xs">STI College · 2023–2024</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-1">
+          <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center mb-4">
+            <i data-lucide="globe" class="w-6 h-6 text-slate-600 dark:text-slate-400"></i>
+          </div>
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Participation</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-1 mb-1 text-sm leading-snug">Website Designing Competition</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-xs">STI College · 2025–2026</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-2">
+          <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center mb-4">
+            <i data-lucide="globe" class="w-6 h-6 text-slate-600 dark:text-slate-400"></i>
+          </div>
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Participation</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-1 mb-1 text-sm leading-snug">Website Designing Competition</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-xs">STI College · 2024–2025</p>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm reveal reveal-delay-3">
+          <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center mb-4">
+            <i data-lucide="terminal" class="w-6 h-6 text-slate-600 dark:text-slate-400"></i>
+          </div>
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Participation</span>
+          <h3 class="font-bold text-slate-900 dark:text-white mt-1 mb-1 text-sm leading-snug">Code Fest Tagisan ng Talino</h3>
+          <p class="text-slate-500 dark:text-slate-400 text-xs">STI College · 2024–2025</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ CERTIFICATIONS ═══════════════════════ -->
+  <section id="certifications" class="py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <p class="text-accent dark:text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">Credentials</p>
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white">Certifications</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal text-center">
+          <div class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="coffee" class="w-7 h-7 text-orange-600 dark:text-orange-400"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-1">Java Fundamentals</h3>
+          <p class="text-accent dark:text-blue-400 text-sm font-medium mb-3">Oracle Academy</p>
+          <div class="flex items-center justify-center gap-1.5 text-slate-500 dark:text-slate-400 text-xs">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            June 2023
+          </div>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-1 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="server" class="w-7 h-7 text-slate-600 dark:text-slate-400"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-1">Systems Administration</h3>
+          <p class="text-accent dark:text-blue-400 text-sm font-medium mb-1">Linux Professional Institute</p>
+          <p class="text-slate-400 dark:text-slate-500 text-xs mb-3">STI College</p>
+          <div class="flex items-center justify-center gap-1.5 text-slate-500 dark:text-slate-400 text-xs">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            June 2023
+          </div>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-2 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="heart-handshake" class="w-7 h-7 text-emerald-600 dark:text-emerald-400"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-1">National Service Training Program</h3>
+          <p class="text-accent dark:text-blue-400 text-sm font-medium mb-3">Certificate of Recognition</p>
+          <div class="flex items-center justify-center gap-1.5 text-slate-500 dark:text-slate-400 text-xs">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            June 2023
+          </div>
+        </div>
+        <div class="card-lift bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm reveal reveal-delay-3 text-center">
+          <div class="w-14 h-14 rounded-2xl bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="users" class="w-7 h-7 text-violet-600 dark:text-violet-400"></i>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white text-base mb-1">Leadership Seminar</h3>
+          <p class="text-accent dark:text-blue-400 text-sm font-medium mb-1">Equipping Gen Z Leaders</p>
+          <p class="text-slate-400 dark:text-slate-500 text-xs mb-3">in a New Normal</p>
+          <div class="flex items-center justify-center gap-1.5 text-slate-500 dark:text-slate-400 text-xs">
+            <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+            May 2023
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══════════════════════ CONTACT ═══════════════════════ -->
+  <section id="contact" class="py-24 bg-slate-50/50 dark:bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <p class="text-accent dark:text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">Get in touch</p>
+        <h2 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white">Let's Talk</h2>
+        <p class="text-slate-500 dark:text-slate-400 mt-4 max-w-md mx-auto">Open to internship opportunities, freelance projects, and entry-level positions. Let's build something great.</p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+        <div class="reveal space-y-6">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white">Carille B. Pabiona</h3>
+          <div class="space-y-4">
+            <a href="tel:+639566002931" class="flex items-center gap-4 group">
+              <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-sm group-hover:border-accent dark:group-hover:border-blue-500 group-hover:shadow-md transition-all">
+                <i data-lucide="phone" class="w-5 h-5 text-accent"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Phone</p>
+                <p class="font-semibold text-slate-900 dark:text-white group-hover:text-accent transition-colors">0956 600 2931</p>
+              </div>
+            </a>
+            <a href="mailto:carillepabiona49@gmail.com" class="flex items-center gap-4 group">
+              <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-sm group-hover:border-accent dark:group-hover:border-blue-500 group-hover:shadow-md transition-all">
+                <i data-lucide="mail" class="w-5 h-5 text-accent"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Email</p>
+                <p class="font-semibold text-slate-900 dark:text-white group-hover:text-accent transition-colors break-all">carillepabiona49@gmail.com</p>
+              </div>
+            </a>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-sm">
+                <i data-lucide="map-pin" class="w-5 h-5 text-accent"></i>
+              </div>
+              <div>
+                <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">Location</p>
+                <p class="font-semibold text-slate-900 dark:text-white">Quezon City, Philippines</p>
+              </div>
+            </div>
+          </div>
+          <div class="pt-4">
+            <p class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Find me online</p>
+            <div class="flex gap-3">
+                <a href="https://github.com/carillepabiona" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"
+                  class="w-11 h-11 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:border-accent hover:text-accent dark:hover:text-blue-400 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5">
+                  <i class="fa-brands fa-github text-base"></i>
+                </a>
+
+                <a href="https://www.facebook.com/rillepabiona/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"
+                  class="w-11 h-11 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:border-accent hover:text-accent dark:hover:text-blue-400 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5">
+                  <i class="fa-brands fa-facebook text-base"></i>
+                </a>
+
+                <a href="https://www.instagram.com/aarilleee/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"
+                  class="w-11 h-11 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 hover:border-accent hover:text-accent dark:hover:text-blue-400 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5">
+                  <i class="fa-brands fa-instagram text-base"></i>
+                </a>
+            </div>
+          </div>
+        </div>
+        <div class="reveal reveal-delay-2">
+          <div class="bg-white dark:bg-slate-800/60 rounded-2xl border border-slate-200 dark:border-slate-700 p-7 shadow-sm">
+            <h4 class="font-bold text-slate-900 dark:text-white mb-6">Send a Message</h4>
+            <div id="contactForm" class="space-y-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">Your Name</label>
+                <input type="text" id="contactName" placeholder="Juan dela Cruz"
+                  class="form-input w-full bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm transition-all" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">Email Address</label>
+                <input type="email" id="contactEmail" placeholder="you@example.com"
+                  class="form-input w-full bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm transition-all" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide mb-2">Message</label>
+                <textarea id="contactMessage" rows="4" placeholder="Tell me about the opportunity or project..."
+                  class="form-input w-full bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 rounded-xl px-4 py-3 text-sm resize-none transition-all"></textarea>
+              </div>
+              <button id="sendBtn" onclick="handleContactSubmit()"
+                class="w-full flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-white font-semibold py-3 rounded-xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/35 transition-all duration-200">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                Send Message
+              </button>
+              <p id="formSuccess" class="hidden text-center text-sm text-emerald-600 dark:text-emerald-400 font-medium py-2">
+                ✓ Message sent! I'll get back to you soon.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="bg-slate-900 dark:bg-slate-950 text-slate-400 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-center sm:text-left">
+          <span class="font-mono font-semibold text-accent text-sm">&lt;CBP /&gt;</span>
+          <p class="text-xs mt-1 text-slate-500">© 2026 Carille B. Pabiona. All Rights Reserved.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <!-- GitHub -->
+          <a href="https://github.com/carillepabiona" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+            class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-accent/20 flex items-center justify-center text-slate-500 hover:text-accent transition-all">
+            <i class="fa-brands fa-github text-sm"></i>
+          </a>
+
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/rillepabiona/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+            class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-accent/20 flex items-center justify-center text-slate-500 hover:text-accent transition-all">
+            <i class="fa-brands fa-facebook text-sm"></i>
+          </a>
+
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/aarilleee/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+            class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-accent/20 flex items-center justify-center text-slate-500 hover:text-accent transition-all">
+            <i class="fa-brands fa-instagram text-sm"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" onclick="scrollToTop()" aria-label="Back to top"
+    class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-xl bg-accent hover:bg-accent-hover text-white shadow-lg shadow-blue-500/30 flex items-center justify-center transition-all duration-300">
+    <i data-lucide="chevron-up" class="w-5 h-5"></i>
+  </button>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
